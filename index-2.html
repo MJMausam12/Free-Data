@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Unlimited Free Data</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════ SPLASH ═══════════ -->
+  <div id="splash" class="splash">
+    <div class="splash-glow"></div>
+    <div class="splash-content">
+      <div class="splash-ring-wrap">
+        <svg class="splash-ring" viewBox="0 0 120 120">
+          <defs>
+            <linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#00f5c4"/>
+              <stop offset="100%" stop-color="#0090ff"/>
+            </linearGradient>
+          </defs>
+          <circle cx="60" cy="60" r="54" fill="none" stroke="url(#rg)"
+            stroke-width="3" stroke-dasharray="339" stroke-dashoffset="339"
+            class="splash-circle"/>
+        </svg>
+        <span class="splash-shield">🛡</span>
+      </div>
+      <div class="splash-wordmark">
+        <div class="sw-line1">UNLIMITED</div>
+        <div class="sw-line2">FREE DATA</div>
+      </div>
+      <div class="splash-tag">SECURE · PRIVATE · UNLIMITED</div>
+      <div class="splash-bar"><div class="splash-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ OVERLAY ═══════════ -->
+  <div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+  <!-- ═══════════ DRAWER ═══════════ -->
+  <aside id="drawer" class="drawer">
+    <div class="dr-header">
+      <div class="dr-brand">
+        <span>🛡</span>
+        <div>
+          <div class="drb-name">UNLIMITED</div>
+          <div class="drb-sub">FREE DATA</div>
+        </div>
+      </div>
+      <button class="dr-close" onclick="closeDrawer()">✕</button>
+    </div>
+
+    <div class="dr-user">
+      <div class="dru-avatar">∞</div>
+      <div>
+        <div class="dru-plan">FREE PLAN — UNLIMITED</div>
+        <div class="dru-conn" id="dru-conn">Not Connected</div>
+      </div>
+    </div>
+
+    <nav class="dr-nav">
+      <a class="dr-item active" onclick="navTo('home',this)">   <i>⚡</i> Home</a>
+      <a class="dr-item"       onclick="navTo('servers',this)"> <i>🌐</i> Servers</a>
+      <a class="dr-item"       onclick="navTo('payload',this)"> <i>🔧</i> Payload / Config</a>
+      <a class="dr-item"       onclick="navTo('logs',this)">    <i>📋</i> Connection Logs</a>
+      <a class="dr-item"       onclick="navTo('premium',this)"> <i>♾</i>  Premium</a>
+      <a class="dr-item"       onclick="navTo('about',this)">   <i>ℹ</i>  About</a>
+    </nav>
+
+    <div class="dr-foot">v3.0.0 · No Ads · No Limits</div>
+  </aside>
+
+  <!-- ═══════════ APP ═══════════ -->
+  <div id="app" class="app" style="display:none">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <button class="hbg" onclick="openDrawer()"><span></span><span></span><span></span></button>
+      <div class="tb-title" id="tb-title">HOME</div>
+      <div class="tb-right">
+        <div class="sig" id="sig"><span></span><span></span><span></span><span></span></div>
+      </div>
+    </header>
+
+    <!-- ──── HOME ──── -->
+    <section id="page-home" class="page active">
+      <div class="page-scroll">
+
+        <div class="orb-area">
+          <div class="pr pr1"></div><div class="pr pr2"></div><div class="pr pr3"></div>
+          <button id="orb" class="orb" onclick="toggleVPN()">
+            <div class="orb-inner">
+              <div class="orb-pwr">⏻</div>
+              <div class="orb-lbl" id="orb-lbl">TAP TO<br>CONNECT</div>
+            </div>
+          </button>
+        </div>
+
+        <div class="status-chip" id="status-chip">
+          <span class="sc-dot" id="sc-dot"></span>
+          <span id="sc-text">DISCONNECTED</span>
+          <span class="sc-time" id="sc-time"></span>
+        </div>
+
+        <div class="card server-sel" onclick="navTo('servers',null)">
+          <img id="sel-flag" class="sel-flag"
+            src="https://flagcdn.com/w40/us.webp"
+            onerror="this.style.display='none'" alt="flag"/>
+          <div class="ss-info">
+            <div class="ss-lbl">ACTIVE SERVER</div>
+            <div class="ss-val" id="sel-srv">United States — Auto</div>
+          </div>
+          <span class="ss-chev">›</span>
+        </div>
+
+        <div class="stats-row" id="stats-row">
+          <div class="stat"><div class="st-ico">⬇</div><div class="st-v" id="s-dn">—</div><div class="st-k">DOWN</div></div>
+          <div class="stat"><div class="st-ico">⬆</div><div class="st-v" id="s-up">—</div><div class="st-k">UP</div></div>
+          <div class="stat"><div class="st-ico">⏱</div><div class="st-v" id="s-pi">—</div><div class="st-k">PING</div></div>
+          <div class="stat"><div class="st-ico">♾</div><div class="st-v cyan">∞</div><div class="st-k">DATA</div></div>
+        </div>
+
+        <div class="card ip-card">
+          <div class="ipr"><span class="ipr-k">YOUR IP</span><span class="ipr-v" id="ip-my">Checking…</span></div>
+          <div class="ipr"><span class="ipr-k">VPN IP</span><span class="ipr-v" id="ip-vpn">—</span></div>
+          <div class="ipr"><span class="ipr-k">PROTOCOL</span><span class="ipr-v" id="ip-proto">—</span></div>
+          <div class="ipr last"><span class="ipr-k">DATA LIMIT</span><span class="ipr-v cyan">UNLIMITED ∞</span></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ──── SERVERS ──── -->
+    <section id="page-servers" class="page">
+      <div class="page-scroll">
+        <div class="search-box">
+          <span>🔍</span>
+          <input id="srv-q" type="text" placeholder="Search country or city…"
+            oninput="filterServers(this.value)" autocomplete="off"/>
+        </div>
+        <div class="tabs">
+          <button class="tb active" onclick="setTab('all',this)">ALL</button>
+          <button class="tb" onclick="setTab('free',this)">FREE</button>
+          <button class="tb" onclick="setTab('premium',this)">PREMIUM</button>
+        </div>
+        <div id="srv-list" class="srv-list"></div>
+      </div>
+    </section>
+
+    <!-- ──── PAYLOAD ──── -->
+    <section id="page-payload" class="page">
+      <div class="page-scroll">
+
+        <div class="cfg-card">
+          <div class="cfg-title">CONNECTION MODE</div>
+          <div class="modes" id="modes">
+            <button class="mb active" onclick="pickMode(this)">SSH Direct</button>
+            <button class="mb" onclick="pickMode(this)">SSH Proxy</button>
+            <button class="mb" onclick="pickMode(this)">HTTP Proxy</button>
+            <button class="mb" onclick="pickMode(this)">V2Ray</button>
+            <button class="mb" onclick="pickMode(this)">Slow DNS</button>
+          </div>
+        </div>
+
+        <div class="cfg-card">
+          <div class="cfg-title">PAYLOAD</div>
+          <div class="cf"><label>Payload Template</label>
+            <textarea id="pay-txt" rows="4">GET / HTTP/1.1[crlf]Host: [host][crlf]Upgrade: websocket[crlf][crlf]</textarea></div>
+          <div class="cf"><label>SNI / Host Override</label>
+            <input id="cf-sni" type="text" value="cdn.cloudflare.com"/></div>
+          <div class="cf-row">
+            <div class="cf"><label>Proxy IP</label><input id="cf-pip" type="text" placeholder="0.0.0.0"/></div>
+            <div class="cf"><label>Port</label><input id="cf-pport" type="text" placeholder="8080"/></div>
+          </div>
+        </div>
+
+        <div class="cfg-card">
+          <div class="cfg-title">SSH SETTINGS</div>
+          <div class="cf-row">
+            <div class="cf"><label>SSH Port</label><input id="cf-sport" type="text" value="22"/></div>
+            <div class="cf"><label>Remote DNS</label><input id="cf-rdns" type="text" value="8.8.8.8"/></div>
+          </div>
+          <div class="tog-row"><span>Enable UDP</span>
+            <label class="tog"><input type="checkbox" id="t-udp" checked/><span class="tog-t"><span class="tog-k"></span></span></label></div>
+          <div class="tog-row"><span>SSL / TLS</span>
+            <label class="tog"><input type="checkbox" id="t-ssl"/><span class="tog-t"><span class="tog-k"></span></span></label></div>
+          <div class="tog-row"><span>Slow DNS Bypass</span>
+            <label class="tog"><input type="checkbox" id="t-sdns"/><span class="tog-t"><span class="tog-k"></span></span></label></div>
+          <div class="tog-row"><span>Unlimited Data Mode</span>
+            <label class="tog"><input type="checkbox" id="t-uldata" checked/><span class="tog-t"><span class="tog-k"></span></span></label></div>
+        </div>
+
+        <button class="save-btn" onclick="saveCfg()">💾  SAVE CONFIGURATION</button>
+      </div>
+    </section>
+
+    <!-- ──── LOGS ──── -->
+    <section id="page-logs" class="page">
+      <div class="logs-wrap">
+        <div class="logs-head">
+          <span id="log-ct" class="log-ct">0 entries</span>
+          <button class="log-clr" onclick="clearLogs()">CLEAR</button>
+        </div>
+        <div id="log-body" class="log-body">
+          <p class="log-empty">No logs yet. Connect to start logging.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ──── PREMIUM ──── -->
+    <section id="page-premium" class="page">
+      <div class="page-scroll">
+        <div class="prem-hero">
+          <div class="ph-ico">♾</div>
+          <div class="ph-title">UNLIMITED FREE DATA</div>
+          <div class="ph-sub">No limits · No caps · No restrictions</div>
+          <div class="ph-badge">✓ ALL FEATURES UNLOCKED</div>
+        </div>
+
+        <div class="feat-grid">
+          <div class="feat"><div class="ft-ico">🚀</div><div class="ft-n">Full Speed</div><div class="ft-d">No throttling</div></div>
+          <div class="feat"><div class="ft-ico">♾</div><div class="ft-n">Unlimited Data</div><div class="ft-d">No monthly cap</div></div>
+          <div class="feat"><div class="ft-ico">🌐</div><div class="ft-n">All Servers</div><div class="ft-d">100+ locations</div></div>
+          <div class="feat"><div class="ft-ico">🔒</div><div class="ft-n">Zero Logs</div><div class="ft-d">Full privacy</div></div>
+          <div class="feat"><div class="ft-ico">📱</div><div class="ft-n">Any Device</div><div class="ft-d">No device limit</div></div>
+          <div class="feat"><div class="ft-ico">⚡</div><div class="ft-n">Auto Connect</div><div class="ft-d">Always on</div></div>
+        </div>
+
+        <div class="prem-tbl">
+          <div class="pt-row"><span>Plan</span><span class="cyan">UNLIMITED FREE</span></div>
+          <div class="pt-row"><span>Data</span><span class="cyan">∞ Unlimited</span></div>
+          <div class="pt-row"><span>Servers</span><span class="cyan">All Unlocked</span></div>
+          <div class="pt-row"><span>Expiry</span><span class="cyan">Never</span></div>
+          <div class="pt-row"><span>Ads</span><span class="cyan">None</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ──── ABOUT ──── -->
+    <section id="page-about" class="page">
+      <div class="page-scroll">
+        <div class="about-hero">
+          <div class="abh-ico">🛡</div>
+          <div class="abh-name">UNLIMITED FREE DATA</div>
+          <div class="abh-ver">Version 3.0.0</div>
+        </div>
+
+        <p class="about-desc">
+          Unlimited Free Data is a fast, secure VPN using SSH tunneling, HTTP proxy and V2Ray.
+          No registration. No data caps. No ads. No Telegram required. Just unlimited freedom.
+        </p>
+
+        <div class="about-links">
+          <div class="al-row" onclick="showToast('Privacy Policy — We collect zero data')">
+            <span>🔒</span> Privacy Policy <span class="alr-c">›</span>
+          </div>
+          <div class="al-row" onclick="showToast('Terms of Service')">
+            <span>📄</span> Terms of Service <span class="alr-c">›</span>
+          </div>
+          <div class="al-row" onclick="showToast('Open Source Licenses')">
+            <span>⚖</span> Open Source Licenses <span class="alr-c">›</span>
+          </div>
+        </div>
+
+        <div class="tech-block">
+          <div class="tech-head">POWERED BY</div>
+          <div class="tech-tags">
+            <span>SSH Tunneling</span><span>HTTP Proxy</span><span>V2Ray</span>
+            <span>WebSocket</span><span>OpenSSL</span><span>Slow DNS</span>
+          </div>
+        </div>
+
+        <div class="about-note">No ads · No Telegram · No login · Free forever ♾</div>
+      </div>
+    </section>
+
+  </div><!-- /#app -->
+
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
